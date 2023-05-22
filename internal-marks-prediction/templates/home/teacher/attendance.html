@@ -1,0 +1,51 @@
+{% extends 'auth/index.html' %}
+{%block body%}
+
+<div style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;padding:15px;margin: 2px;">
+    <div style="float: right;margin-right:50px">
+        <p style="font-weight: bolder;">Date:&nbsp;<span style="font-weight:lighter">{{dStr}}</span></p>
+    </div>
+    {%if df.is_expired %}
+    <p class="text-danger" style="font-weight: bolder">Session Ended</p>
+    {%else%}
+    <form method="post" action="/teacher/attendace/start">
+        {%csrf_token%}
+        <input type="hidden" value="{{df.id}}" name="end_session">
+        <button class="btn btn-danger" type="submit">
+            End Session
+        </button>
+    </form>
+    {%endif%}
+    <div class="">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Student Name</th>
+                    <th scope="col">Subject </th>
+                    <th scope="col">Roll No</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for stud in attendace_data%}
+                <tr>
+                    <td>{{stud.f_name |title }}&nbsp;{{stud.l_name}}</td>
+                    <td>Microwave</td>
+                    <td>{{stud.roll_no}}</td>
+                    <td>{{stud.dStr}}</td>
+                    <td>{{stud.tStr}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<!-- Github buttons -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="/static/assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
+{%endblock body%}

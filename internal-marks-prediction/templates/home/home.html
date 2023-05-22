@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+
+
+{% extends 'auth/index.html' %}
+{%block body%}
+</div>
+<div class="box_area">
+  <form action="/">
+    {% csrf_token %}
+    <div class="container text-center">
+
+      <input type="text" placeholder='Enter IA 1 marks' class="form-label input" required name="IA 1">
+    </div>
+
+    <div class="container text-center ">
+      <input type="text" placeholder='Enter IA 2 marks' class="form-label input" required name="IA 2">
+    </div>
+    <div class="container text-center ">
+
+      <input type="text" placeholder='Enter IA 3 marks' class="form-label input" required name="IA 3">
+    </div>
+    <div class="container text-center ">
+
+      <input type="text" placeholder='Enter presenty in percentage' class="form-label input" required name="presenty">
+    </div>
+
+    <div class="select_performance">
+      <select type="text" required name="behaviour" class="input">
+        <option selected>Select student performance </option>
+        <option value="1" class="text-center">Normal</option>
+        <option value="2">Good</option>
+        <option value="3">Very Good</option>
+      </select>
+    </div>
+
+    <button type="submit" name="submit" id="submit_btn" class="btn btn-outline" style="width: 300px !important;"
+      onclick="ShowResult()">
+      {%if is_result%}
+      <span>{{result}}</span>
+      {%else%}
+      <span>See Marks</span>
+      {%endif%}
+    </button>
+    <br>
+  </form>
+  {%if is_result %}
+  <a href="/">
+    <button class="btn bnt-outline" id="go_home" style="width: 300px;"><span><img
+          src="https://cdn-icons-png.flaticon.com/512/70/70196.png"
+          style="height: 17px;margin-right: 10px;margin-bottom: 2px;"></span>For predict again.</button></a>
+  {%endif%}
+</div>
+<script>
+  function ShowResult() {
+    document.getElementById(' ').innerHTML = `<span>{{result}}</span>`
+
+
+  }
+
+</script>
+{%endblock body}

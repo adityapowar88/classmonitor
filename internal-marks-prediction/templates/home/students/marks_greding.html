@@ -1,0 +1,170 @@
+{% extends 'auth/index.html' %}
+{%block style%}
+<style>
+    .box_area {
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+        text-align: center;
+        margin-left: 25%;
+        margin-right: 25%;
+    }
+
+    .box_area input {
+        width: 300px;
+        margin-top: 20px;
+        border: solid #DCDCDC;
+        border-width: 0.5px;
+        border-radius: 10px;
+        height: 40px;
+    }
+
+    ::-webkit-input-placeholder {
+        /* Chrome, Opera, and Safari */
+        color: #000080;
+        text-align: center;
+    }
+
+    .select_performance select {
+        border: solid #DCDCDC;
+        border-width: 0.5px;
+        border-radius: 10px;
+        width: 300px;
+        height: 40px;
+        color: #000080;
+        margin-top: 16px;
+    }
+
+    .select_performance option {
+        border: solid #DCDCDC;
+        border-width: 0.5px;
+        border-radius: 10px;
+        width: 300px;
+        height: 40px;
+        color: #000080;
+    }
+
+    #submit_btn {
+        color: #fff;
+        background-color: red;
+        padding: 5px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+    }
+
+    #submit_btn span {
+        padding: 7px;
+        font-weight: 500;
+        width: 300px !important;
+    }
+
+    #submit_btn:hover {
+        background-color: #fff;
+        color: red;
+        border: solid #000080;
+        border-width: 1px;
+    }
+
+    #go_home {
+        color: black;
+        background-color: cyan;
+        padding: 5px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        border: solid black;
+        border-width: 1px;
+    }
+
+    .input {
+        width: 100%;
+        color: rgb(38, 50, 56);
+        font-weight: 700;
+        font-size: 14px;
+        letter-spacing: 1px;
+        background: rgba(136, 126, 126, 0.04);
+        padding: 10px 20px;
+        border: none;
+        outline: none;
+        box-sizing: border-box;
+        border: 2px solid rgba(0, 0, 0, 0.02);
+        text-align: center;
+
+    }
+
+    .input:focus {
+        border: 1px solid #000080;
+        ;
+    }
+
+    @media screen and (max-width: 768px) {
+        .box_area .input {
+            width: 200px;
+        }
+
+        .box_area {
+            text-align: center;
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+
+    }
+</style>
+
+{%endblock style%}
+
+{%block body%}
+<div class="box_area">
+    <form action="/student/marks-grading">
+        {% csrf_token %}
+        <div class="container text-center">
+            {%if error %}
+            <p class="text-danger mb-0 mt-3 font-weight-bolder" style="font-weight: bolder;padding:5px;">
+                Error: {{error}}</p>
+            {%endif%}
+            <input type="text" placeholder='Enter IA 1 marks' class="form-label input" required name="cie1">
+        </div>
+        <div class="container text-center ">
+            <input type="text" placeholder='Enter IA 2 marks' class="form-label input" required name="cie2">
+        </div>
+        <div class="container text-center ">
+            <input type="text" placeholder='Enter IA 3 marks' class="form-label input" required name="cie3">
+        </div>
+        <div class="container text-center ">
+            <input type="text" placeholder='Enter presenty in percentage' class="form-label input" required
+                name="presenty">
+        </div>
+        
+        <div class="select_performance">
+            <select type="text" required name="behaviour" class="input">
+                <option selected>Select student performance </option>
+                <option value="1" class="text-center">Normal</option>
+                <option value="2">Good</option>
+                <option value="3">Very Good</option>
+            </select>
+        </div>
+        <button type="submit" name="submit" id="submit_btn" class="btn btn-outline" style="width:300px;"
+            onclick="ShowResult()">
+            {%if is_result%}
+            <span>{{result}}</span>
+            {%else%}
+            <span>See Marks</span>
+            {%endif%}
+        </button>
+        <br>
+    </form>
+    {%if is_result %}
+    <a href="/student/marks-grading">
+        <button class="btn bnt-outline" id="go_home" style="width: 300px;"><span><img
+                    src="https://cdn-icons-png.flaticon.com/512/70/70196.png"
+                    style="height: 17px;margin-right: 10px;margin-bottom: 2px;"></span>For predict again.</button></a>
+    {%endif%}
+</div>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<script src="/static/assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
+
+<script>
+    function ShowResult() {
+        document.getElementById('submit_btn').innerHTML = `<span>{{result}}</span>`
+    }
+</script>
+{%endblock body%}

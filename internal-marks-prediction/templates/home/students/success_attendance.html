@@ -1,0 +1,100 @@
+{% extends 'auth/index.html' %}
+{%block style%}
+<style>
+    body {
+        background: #f2f2f2;
+    }
+
+    .payment {
+        border: 1px solid #f2f2f2;
+        height: 280px;
+        border-radius: 20px;
+        background: #fff;
+    }
+
+    .payment_header {
+        background: green;
+        padding: 20px;
+        border-radius: 20px 20px 0px 0px;
+
+    }
+
+    .check {
+        margin: 0px auto;
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+        background: #fff;
+        text-align: center;
+    }
+
+    .check i {
+        vertical-align: middle;
+        line-height: 50px;
+        font-size: 50px;
+    }
+
+    .content {
+        text-align: center;
+    }
+
+    .content h1 {
+        font-size: 25px;
+        padding-top: 25px;
+    }
+
+    .content a {
+        width: 200px;
+        height: 35px;
+        color: #fff;
+        border-radius: 30px;
+        padding: 5px 10px;
+        background: green;
+        transition: all ease-in-out 0.3s;
+    }
+
+    .content a:hover {
+        text-decoration: none;
+        background: #000;
+    }
+</style>
+{%endblock style%}
+{%block body%}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto mb-5">
+            <div class="payment">
+                <div class="payment_header">
+                    <div class="check">
+                        <i class="fa fa-check" aria-hidden="true"
+                            style="font-size:30px;font-weight:bold;margin-top: 7px;"></i>
+                    </div>
+                </div>
+                <div class="content">
+                    <h1>Successfully</h1>
+                    <p>
+                    </p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Subject</th>
+                                <th scope="col">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{stud.f_name}}&nbsp;{{stud.l_name}}</td>
+                                <td>Microwave</td>
+                                <td>{{stud.dStr}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a href="/students" style="text-decoration:none;">Go to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock body%}

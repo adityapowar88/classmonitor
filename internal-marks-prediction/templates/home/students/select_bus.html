@@ -1,0 +1,46 @@
+{% extends 'auth/index.html' %}
+{%block body%}
+<div class="container">
+    <div class="container text-center">
+     
+        <div class="list-group group_btns">
+            <div class="form-floating mb-3">
+                <select class="form-select" name="bus" id="bus">
+                    <option selected>Select Bus number</option>
+                    <option value="driveruser2">1234</option>
+                    <option value="driveruser">4578</option>
+                    <!-- <option value="3">4152</option>
+                    <option value="4">7845</option> -->
+                </select>
+                <input type="hidden" name="user_coord" id="user_coord" value="lasdjflsdjfldsj">
+            </div>
+            <button class="btn btn-danger" onclick="getLocation()">Submit</button>
+        </div>
+        <!-- Github butto   ns -->
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+        <script src="/static/assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
+
+        <script>
+        function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+        }
+        function showPosition(position) {
+        var lat = 16.391708
+        var lon = 74.381701
+        var driver_user = document.getElementById('bus').value
+        if(driver_user == 'driveruser2'){
+            var url = "https://www.google.com/maps/dir/" + lat + "," + lon + "/"+16.43673477029507+","+  74.38548130738555+""
+        }
+        else if(driver_user == 'driveruser'){
+            var url = "https://www.google.com/maps/dir/" + lat + "," + lon + "/"+ 16.429251 +","+ 74.587769 +""
+        }
+        window.open(url,'_blank');
+        }
+        </script>
+        {%endblock body%}
+ 

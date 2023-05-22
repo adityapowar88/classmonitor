@@ -1,0 +1,8 @@
+scikit-learn==1.0.2
+numpy==1.22.2
+Django==3.1.7
+joblib==1.1.0
+pandas==1.4.1
+jsonfield   
+# face-recognition
+# opencv-python==4.6.0.66

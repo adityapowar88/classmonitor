@@ -1,0 +1,145 @@
+{% extends 'auth/index.html' %}
+{%block style%}
+<style>
+  .camera_section {
+    box-shadow: 2px 2px 12px rgba(47, 47, 47, 0.40);
+    width: auto;
+    margin-top: 20px;
+    margin-right: auto;
+    width: 100%;
+  }
+
+  #video {
+    width: 100%;
+    height: 200px;
+    content-align: center;
+    margin-top: 20px;
+    margin-right: auto;
+    padding-left: auto;
+
+  }
+
+  #photo {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    content-align: center;
+    bottom: 25%;
+    right: 10%;
+    top: 20%;
+  }
+
+  #canvas {
+    display: none;
+  }
+
+
+  #startbutton {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 14px;
+    border: none;
+    background: none;
+    margin-top: 0px;
+    padding-top: 0px;
+  }
+
+  .contentarea {
+    font-size: 16px;
+    font-family: "Lucida Grande", "Arial", sans-serif;
+    width: 100%;
+  }
+
+  #send_photo {
+    height: 14px !important;
+    width: 14px;
+    margin-left: 10px;
+  }
+
+  input[type='file'] {
+    opacity: 0
+  }
+
+  input[type='file'] {
+    color: rgba(0, 0, 0, 0)
+  }
+
+  .parsalimage_div {
+    width: 100%;
+  }
+
+  .parsalimage_div {
+    text-align: center;
+  }
+
+  .parsalimage_div img {
+    height: 20px;
+    position: absolute;
+    margin-right: 25px;
+    margin-top: 25px;
+    margin-left: 25px;
+  }
+  #send_photo {
+        height: 14px !important;
+        width: 14px;
+        margin-left: 10px;
+    }
+    #button {
+        display: inline-block;
+        background-color: indigo;
+        color: white;
+        padding: 0.5rem;
+        font-family: sans-serif;
+        border-radius: 0.3rem;
+        cursor: pointer;
+        margin-top: 1rem;
+        width: 80%;
+
+    }
+
+    #button span {
+        font-size: 13px;
+        padding: 5px;
+    }
+
+</style>
+{%endblock style%}
+{%block body%}
+<div class="container" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;padding: 30px;">
+  <form method="POST" name="inputForm" enctype='multipart/form-data'>
+    {% csrf_token %}
+    <div class='parsalimage_div'>
+      <input type="file" capture="environment" name='src' id="parsel_image" hidden />
+      <label for="parsel_image" id='button'><span>
+          <span ><i class='fa fa-camera'></i>&nbsp;Open Camera</span>
+      </label>
+      <div class='text-center'>
+        <button type="submit" id="submit_btn" class='btn btn-danger w-100 mt-3'>Send</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+</div>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<script src="/static/assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+<script>
+   $('#submit_btn').click(function () {
+   document.getElementById('submit_btn').innerHTML = `Processing..<span class="spinner-border" role="status" 
+    id='send_photo'>
+  </span>`
+  });
+
+
+   // Rename after click photo
+   document.getElementById("parsel_image").onchange = function () {
+        var html = `<span ><i class='fa fa-check'></i>&nbsp; Photo Captured </span>`;
+        document.getElementById('button').innerHTML = html;
+    };
+</script>
+{%endblock body%}

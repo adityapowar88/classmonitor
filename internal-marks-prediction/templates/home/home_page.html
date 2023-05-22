@@ -1,0 +1,39 @@
+{% extends 'auth/index.html' %}
+
+<div id="layoutAuthentication_content">
+    <main>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                    <div class="card shadow-lg border-0 rounded-lg">
+                        <div class="card-header">
+                            <h3 class="text-center font-weight-light my-4">Login</h3>
+                        </div>
+                        <div class="card-body">
+                            <form action="" method="POST">
+                                {%csrf_token%}
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" id="email" type="email" name="email" placeholder="name@example.com" oninput="emailChanged()"/>
+                                    <label for="inputEmail">Username</label>
+                                </div> 
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" id="email" type="password" name="password"/>
+                                    <label for="inputEmail">Password</label>
+                                </div>   
+                                <div class="row mt-4 mb-0">
+                                    <div class="input-group">
+                                        <input type="submit" class="btn btn-primary mx-auto" value="Login "/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer text-center py-3">
+                            <div class="small"><a href="register">Need an account? Register</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{%endblock body}

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="/static/assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="/static/assets/img/favicon.png">
+
+  <title>
+    Class monitoring  </title>
+  
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <!-- Nucleo Icons -->
+  <link href="/static/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="/static/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <link href="/static/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link id="pagestyle" href="/static/assets/css/soft-ui-dashboard.css?v=1.0.3" rel="stylesheet" />
+
+
+<style>
+  html body{
+background-color: #eee;
+  }
+	.box_area{
+	box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+	text-align: center;
+	margin-left:25%;
+	margin-right: 25%;
+  padding: 20px;
+	}
+	
+  .btn{
+    background-color: red;
+    padding: 10px;
+    color:#fff;
+    border:1px #fff;
+    font-weight: bolder;
+  }
+  .btn:hover{
+     color: red;
+     border:1px solid red;
+     background-color: #fff;
+  }
+.main_area{
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+#button{
+  display: inline-block;
+  background-color: indigo;
+  color: white;
+  padding: 0.5rem;
+  font-family: sans-serif;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+.select_city{
+ font-size:12px;
+}
+#button span{
+  font-size:13px;
+  padding:5px;
+}
+.fileUpload {
+     background-color: indigo;
+  color: white;
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+    width:80px;
+    font-size:12px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+   
+}
+.deliver_partner label{
+    margin-top:15px;
+    font-weight:bolder;
+    font-size:14px;
+}
+.camera_section{
+  box-shadow:2px 2px 12px rgba(47,47,47,0.40);
+  width:auto;
+  margin-top:20px;
+  margin-right:auto;
+  width:100%;
+}
+#video {
+  width:100%;
+  height:200px;
+  content-align:center;
+  margin-top:20px;
+  margin-right:auto;
+  padding-left:auto;
+   
+}
+
+#photo {
+ position:absolute;
+  width:70px;
+  height:100px;
+  content-align:center;
+  bottom:15%;
+  right:15%;
+  top:60%;
+}
+
+#canvas {
+  display:none;
+}
+#startbutton {
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+  font-size: 14px;
+  border:none; 
+background:none;
+margin-top:0px;
+padding-top:0px;
+  } 
+.contentarea {
+  font-size: 16px;
+  font-family: "Lucida Grande", "Arial", sans-serif;
+  width:100%;
+}
+#submit{
+  margin-left:auto;
+  margin-right:auto;
+  background-color:#FF6347;
+  color:#fff;
+  {% comment %} margin:5px; {% endcomment %}
+   border: solid #FF6347;
+   font-size:12px;
+   width:100%;
+}
+</style>
+<body>
+ <div class="container box_area">
+ <div class="mt-3 container deliver_partner">
+  <form method="POST" name="inputForm" enctype="multipart/form-data">
+<input type="hidden" name="csrfmiddlewaretoken" value="">
+<label style='margin-bottom:0px;margin-left:2px;margin-top:5px;'>3.Capture your selfie</label>
+  <div class="contentarea">
+            <div class="Input">
+                    <div id="camera" class="camera">
+                    <div class='camera_section'>
+                        <video id="video">Video stream not available.</video>
+                        <button id="startbutton" type="button"><span><img src='https://as1.ftcdn.net/v2/jpg/02/47/54/48/500_F_247544826_TzCmLbc0UBZuZllFaEVCqMgPUNLhA41T.jpg' style='width:35px;height:25px;'></span></button>
+                        <input id="webimg" value="" name="src" type="text" style="display: none; "required>
+                        <canvas id="canvas">
+                        </canvas>                    
+                        <img id="photo" alt="your image">
+                    </div>
+                        <br>
+                      </div>
+                    <div>
+                     <label>
+                     <input type="checkbox" value="agree" name='agree_conditions' id='agree_conditions' required> Agree terms and conditions </label>
+                        <div class='text-center'>
+                    <button type="submit" class="btn btn-outline button" id="submit">Present</button>
+                    </div>
+                </form>
+            </div>
+           <img src="{{ path }}" >
+        </div>
+</div>
+
+<script>
+
+(function() {
+  // The width and height of the captured photo. We will set the
+  // width to the value defined here, but the height will be
+  // calculated based on the aspect ratio of the input stream.
+
+  var width = 320;    // We will scale the photo width to this
+  var height = 0;     // This will be computed based on the input stream
+
+  // |streaming| indicates whether or not we're currently streaming
+  // video from the camera. Obviously, we start at false.
+
+  var streaming = false;
+
+  // The various HTML elements we need to configure or control. These
+  // will be set by the startup() function.
+
+  var video = null;
+  var canvas = null;
+  var photo = null;
+  var startbutton = null;
+
+  function startup() {
+    video = document.getElementById('video');
+    canvas = document.getElementById('canvas');
+    photo = document.getElementById('photo');
+    startbutton = document.getElementById('startbutton');
+
+    navigator.mediaDevices.getUserMedia({video: true, audio: false})
+    .then(function(stream) {
+      video.srcObject = stream;
+      video.play();
+    })
+    .catch(function(err) {
+      console.log("An error occurred: " + err);
+    });
+
+    video.addEventListener('canplay', function(ev){
+      if (!streaming) {
+        height = video.videoHeight / (video.videoWidth/width);
+      
+        // Firefox currently has a bug where the height can't be read from
+        // the video, so we will make assumptions if this happens.
+      
+        if (isNaN(height)) {
+          height = width / (4/3);
+        }
+      
+        video.setAttribute('width', width);
+        video.setAttribute('height', height);
+        canvas.setAttribute('width', width);
+        canvas.setAttribute('height', height);
+        streaming = true;
+      }
+    }, false);
+
+    startbutton.addEventListener('click', function(ev){
+      takepicture();
+      ev.preventDefault();
+    }, false);
+    
+    clearphoto();
+  }
+
+  // Fill the photo with an indication that none has been
+  // captured.
+
+  function clearphoto() {
+    var context = canvas.getContext('2d');
+    context.fillStyle = "#AAA";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+    var data = canvas.toDataURL('image/png');
+    photo.setAttribute('src', data);
+  }
+  
+  // Capture a photo by fetching the current contents of the video
+  // and drawing it into a canvas, then converting that to a PNG
+  // format data URL. By drawing it on an offscreen canvas and then
+  // drawing that to the screen, we can change its size and/or apply
+  // other changes before drawing it.
+
+  function takepicture() {
+    var context = canvas.getContext('2d');
+    if (width && height) {
+      canvas.width = width;
+      canvas.height = height;
+      context.drawImage(video, 0, 0, width, height);
+    
+      var data = canvas.toDataURL('image/png');
+      photo.setAttribute('src', data);
+      document.getElementById('webimg').value = data;
+      console.log(data);
+    } else {
+      clearphoto();
+    }
+  }
+
+  // Set up our event listener to run the startup process
+  // once loading is complete.
+  window.addEventListener('load', startup, false);
+})();
+</script>
+
+	
+</body>
+
+</html>

@@ -1,0 +1,153 @@
+{% extends 'auth/index.html' %}
+{%block style%}
+<style>
+    input[type='file'] {
+        opacity: 0
+    }
+
+    input[type='file'] {
+        color: rgba(0, 0, 0, 0)
+    }
+
+    .parsalimage_div {
+        width: 100%;
+    }
+
+    .parsalimage_div {
+        text-align: center;
+    }
+
+    .parsalimage_div img {
+        height: 20px;
+        position: absolute;
+        margin-right: 25px;
+        margin-top: 25px;
+        margin-left: 25px;
+    }
+
+    #send_photo {
+        height: 14px !important;
+        width: 14px;
+        margin-left: 10px;
+    }
+
+    #button {
+        display: inline-block;
+        background-color: indigo;
+        color: white;
+        padding: 0.5rem;
+        font-family: sans-serif;
+        border-radius: 0.3rem;
+        cursor: pointer;
+        margin-top: 1rem;
+        width: 80%;
+
+    }
+
+    #button span {
+        font-size: 13px;
+        padding: 5px;
+    }
+</style>
+{%endblock style%}
+{%block body%}
+<div id="layoutAuthentication_content">
+    <main>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                    <div class="card shadow-lg border-0 rounded-lg">
+                        <div class="card-header">
+                            <h3 class="text-center font-weight-light my-4">Academic Details</h3>
+                        </div>
+                        <div class="card-body">
+                            {% for message in messages %}
+                            <script>
+                                alert('{{message}}')
+                            </script>
+                            {% endfor %}
+                            <form method="POST" enctype='multipart/form-data'>
+                                {%csrf_token%}
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" id="email" type="text" name="username" placeholder="name@user" />
+                                    <label for="inputEmail">Username</label>
+                                </div> 
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" name="year">
+                                        <option selected>Select Year</option>
+                                        <option value="1">First Year</option>
+                                        <option value="2">Second Year</option>
+                                        <option value="3">Third Year</option>
+                                        <option value="4">Final Year</option>
+                                    </select>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" name="division">
+                                        <option selected> Select Semester</option>
+                                        <option value="1">Semester 1 </option>
+                                        <option value="2">Semester 2</option>
+                                        <option value="3">Semester 3</option>
+                                        <option value="4">Semester 4</option>
+                                        <option value="5">Semester 5</option>
+                                        <option value="6">Semester 6</option>
+                                        <option value="7">Semester 7</option>
+                                        <output value="8">Semester 8</output>
+
+                                    </select>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" name="department">
+                                        <option selected> Select Department</option>
+                                        <option value="1">Electronics and Telecommunicatin</option>
+                                        <option value="2">Computer Engineering</option>
+                                        <option value="3">Electronics Engineering</option>
+                                        <option value="4">Mechanical Engineering</option>
+                                        <option value="5">Civil Engineering</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" id="roll_no" type="number" name="roll_no"
+                                        placeholder="Roll no" />
+                                    <label for="roll_no">Roll Number</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <div class='parsalimage_div'>
+                                        <input type="file" capture="environment" name='src' id="parsel_image" hidden />
+                                        <label for="parsel_image" id='button'><span>
+                                                <span><i class='fa fa-camera'></i>&nbsp;Send Selfie Photo</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row mt-4 mb-0">
+                                    <div class="input-group">
+                                        <button type="submit" class="btn btn-danger w-100" id='submit_btn'>
+                                            Send
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+    $('#submit_btn').click(function () {
+        document.getElementById('submit_btn').innerHTML = `Processing..<span class="spinner-border" role="status" 
+     id='send_photo'>
+   </span>`
+    });
+
+
+    // Rename after click photo
+    document.getElementById("parsel_image").onchange = function () {
+        var html = `<span ><i class='fa fa-check'></i>&nbsp; Photo Captured </span>`;
+        document.getElementById('button').innerHTML = html;
+    };
+</script>
+{%endblock body%}

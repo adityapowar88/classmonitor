@@ -1,0 +1,30 @@
+{%block body%}
+<div class="container">
+    <div class="container text-center">
+        <div class="list-group group_btns">
+            <button class="btn btn-danger" onclick="getLocation()" , style="border: 2px solid black;color: rgb(252, 251, 251);padding: 25px; width: 400px; margin: 0 auto;background-color: rgb(59, 129, 226); margin-left: 40% ;margin-top: 10%; font-size: 25px;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Start Location</button>
+            
+            <!-- <button class="btn btn-danger" onclick="getLocation()", style="border:solid,black; color: rgb(200, 21, 54);padding: 10px 5% ;text-align:center">End Location</button> -->
+        </div>
+        <!-- Github buttons -->
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+        <script src="/static/assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
+
+        <script>
+        function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+            
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+        }
+        function showPosition(position) {
+        url = "http://127.0.0.1:8000/driver/location-success"
+        window.open(url);
+        }
+
+        </script>
+        {%endblock body%}
+ 

@@ -1,0 +1,21 @@
+{% extends 'auth/index.html' %}
+{%block body%}
+<div class="container">
+    <div class="container text-center">
+        <div class="list-group group_btns">
+            <a href="student/attandance_first" style="text-decoration:none;">
+                <button type="button" class="list-group-item list-group-item-action"
+                    aria-current="true">Attandance</button>
+            </a>
+            <a href="student/marks-grading" style="text-decoration:none;">
+            <button type="button" class="list-group-item list-group-item-action">Internal Marks</button>
+            </a>
+            <a href="student/select-bus" style="text-decoration:none;">
+            <button type="button" class="list-group-item list-group-item-action">Bus Tracker</button>
+            </a>
+        </div>
+        <!-- Github buttons -->
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+        <script src="/static/assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
+        {%endblock body%}

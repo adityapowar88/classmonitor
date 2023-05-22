@@ -1,0 +1,55 @@
+{% extends 'auth/index.html' %}
+{%block body%}
+<div class="container">
+    <div class="container text-center">
+        <form method="post" action="/teacher/attendace/start">
+            {%csrf_token%}
+            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="class">
+                <option selected>Class</option>
+                <option value="1">First Year</option>
+                <option value="2">Second Year</option>
+                <option value="3">Third Year</option>
+                <option value="3">Last Year</option>
+              </select>
+              <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="department">
+                <option selected> Select Department </option>
+                <option value="1">Mechanical Engineering </option>
+                <option value="2">Civil Engineering </option>
+                <option value="3">Computer Engineering </option>
+                <option value="4">Electronics and communication Engineering </option>
+              </select>
+              <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="div">
+                <option selected> Select Semester</option>
+                <option value="1">Semester 1 </option>
+                <option value="2">Semester 2 </option>
+                <option value="3">Semester 3 </option>
+                <option value="4">Semester 4 </option>
+                <option value="5">Semester 5 </option>
+                <option value="6">Semester 6 </option>
+                <option value="7">Semester 7 </option>
+                <option value="8">Semester 8 </option>
+              </select>
+              
+              <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="subject">
+                <option selected>Subject</option>
+                <option value="1">Microwave Engineering</option>
+                <option value="2">Video Engineering</option>
+                <option value="3">Computer Networks</option>
+              </select>
+
+              <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="time">
+                <option selected>Time Session</option>
+                <option value="1">5 minutes</option>
+                <option value="2">10 minutes</option>
+                <option value="3">20 minutes</option>
+              </select>
+              <button type='submit' class="btn btn-primary w-100" style="font-weight:bolder" >
+                Start
+              </button>
+              </form>
+</div></div>
+              <!-- Github buttons -->
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+        <script src="/static/assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
+        {%endblock body%}

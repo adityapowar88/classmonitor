@@ -1,0 +1,65 @@
+
+{% extends 'auth/index.html' %}
+{%block style%}
+<style>
+    #reigister_btn {
+        height: 14px !important;
+        width: 14px;
+        margin-left: 10px;
+    }
+</style>
+{%endblock style%}
+{%block body%}
+
+<div id="layoutAuthentication_content">
+    <main>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                    <div class="card shadow-lg border-0 rounded-lg">
+                        <div class="card-header">
+                            <h3 class="text-center font-weight-light my-4">Login</h3>
+                        </div>
+                        {% if page_data.error %}
+                        <div class="alert alert-danger text-center" role="alert">
+                            <h4 class="alert-heading">Login Error!</h4>
+                            <p>{{page_data.error}}</p>
+                        </div>
+                      {% endif %}
+                        <div class="card-body">
+                            <form action="/login" method="POST">
+                                {%csrf_token%}
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" id="email" type="text" name="username" placeholder="name@example.com" oninput="emailChanged()"/>
+                                    <label for="inputEmail">Username</label>
+                                </div> 
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" id="email" type="password" name="password"/>
+                                    <label for="inputEmail">Password</label>
+                                </div>   
+                                
+                                <div class="row mt-4 mb-0">
+                                    <div class="input-group">
+                                        <button type="submit" class="btn btn-danger w-100" id="submit_btn">Login</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer text-center py-3">
+                            <div class="small"><a href="register">Need an account? Register</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<script>
+    $('#submit_btn').click(function () {
+        document.getElementById('submit_btn').innerHTML = `Processing..<span class="spinner-border" role="status" 
+     id='reigister_btn'>
+   </span>`
+    });
+
+</script>
+{%endblock body%}
