@@ -330,6 +330,7 @@ def AttendanceStartTeacher(request):
         id = request.POST['end_session']
         ob = AttendanceList.objects.get(id=int(id))
         ob.is_expired = True
+        print('expiring..')
         ob.save()
         
     elif request.POST:
@@ -360,6 +361,7 @@ def AttendanceStartTeacher(request):
                 subject=presenty_data['course'],
                 div=presenty_data['div'],
                 year=presenty_data['class'],
+                is_expired = False,
                 teacher_name=presenty_data['teacher_name']).save()
             
     
