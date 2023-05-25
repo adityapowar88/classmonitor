@@ -5,13 +5,13 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 import joblib
 from django.http.response import StreamingHttpResponse
-# from .camera import VideoCamera
+from .camera import VideoCamera
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 from home.models import *
 from django.contrib.auth import login as auth_login
 import pandas as pd
-# import cv2
+import cv2
 from django.contrib import messages
 from datetime import datetime
 
