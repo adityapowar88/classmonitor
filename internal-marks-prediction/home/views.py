@@ -22,7 +22,6 @@ def Index(request):
 
 def HomePage(request):
     if request.user.is_authenticated:
-        print(user_type.objects.get(user=request.user))
         if user_type.objects.get(user=request.user).is_teacher == True:
             return redirect('/teacher')
         
@@ -229,7 +228,6 @@ def AttendanceStartStudent(request):
             return HttpResponse('Sorry you have not created your profile yet...')
     return render(request, 'home/students/attendance.html')
 
-
 def attendance(user):
     current_user = Student.objects.get(user=user)
     f_name = current_user.first_name
@@ -250,18 +248,14 @@ def attendance(user):
         'dStr': dStr,
     }
     data_list.append(data_dict)
-    roll_numbers = []
+    attendance_list = AttendanceList.objects.last().attendance
     try:
-        attendance_list = AttendanceList.objects.last()
-        attendance_list.attendance.append(data_list)
-        attendance_list.save()
-
+        attendance_list.append(data_dict)
     except:
-        attendance_list = AttendanceList.objects.last()
-        attendance_list.attendance = data_list
-        attendance_list.save()
+       attendance_instance = AttendanceList.objects.last()
+       attendance_instance.attendance = attendance_instance.attendance.append(data_dict)
+       attendance_instance.save()
     return data_dict
-
 
 def MarksGreding(request):
     i = 1
@@ -303,7 +297,7 @@ def select_bus(request):
             coord = json.dumps(coord)
             url = "https://www.google.com/maps/dir/" + lat + "," + lon + "/"+driver.lat+","+driver.lon+""
             return redirect(url)
-
+        
             return render(request,'home/students/select_bus.html',{"coord":coord})
         except:
             pass
@@ -326,15 +320,14 @@ def AttendancePageTeacher(request):
 
 @login_required(redirect_field_name='next', login_url='/login')
 def AttendanceStartTeacher(request):
+    presenty_data = {}     
     if request.POST.get('end_session'):
         id = request.POST['end_session']
         ob = AttendanceList.objects.get(id=int(id))
         ob.is_expired = True
-        print('expiring..')
         ob.save()
-        
-    elif request.POST:
-        presenty_data = {}
+    
+    elif request.POST:  
         presenty_data['class'] = request.POST.get('class')
         presenty_data['course'] = request.POST.get('subject')
         presenty_data['session'] = int(request.POST.get('time'))
@@ -356,23 +349,25 @@ def AttendanceStartTeacher(request):
         else:
             presenty_data['course'] = 'Computer Networking'
 
-            AttendanceList(
-                teacher=str(request.user),
-                subject=presenty_data['course'],
-                div=presenty_data['div'],
-                year=presenty_data['class'],
-                is_expired = False,
-                teacher_name=presenty_data['teacher_name']).save()
-            
-    
+        df = AttendanceList(
+            teacher=str(request.user),
+            subject=presenty_data['course'],
+            div=presenty_data['div'],
+            year=presenty_data['class'],
+            is_expired = False,
+            attendance = [],
+            teacher_name=presenty_data['teacher_name'])
+        df.save()
+
     df = AttendanceList.objects.last()
-    
     time_now = datetime.now()
     dStr = time_now.strftime('%d/%m/%Y')
-    params = {'attendace_data': df.attendance,'df':df, 'dStr': dStr}
+    for i in df.attendance:
+        print('count',i)  
+    course = ""
+    params = {'attendace_data': df.attendance,'df':df, 'dStr': dStr,"course":course}
     return render(request, 'home/teacher/attendance.html', params
-                  )
-
+                    )
 
 # Driver Dashboard
 

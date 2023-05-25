@@ -20,7 +20,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Student Name</th>
+                    <th scope="col">Student</th>
                     <th scope="col">Subject </th>
                     <th scope="col">Roll No</th>
                     <th scope="col">Date</th>
@@ -31,7 +31,7 @@
                 {%for stud in attendace_data%}
                 <tr>
                     <td>{{stud.f_name |title }}&nbsp;{{stud.l_name}}</td>
-                    <td>Microwave</td>
+                    <td>{{Microwave}}</td>
                     <td>{{stud.roll_no}}</td>
                     <td>{{stud.dStr}}</td>
                     <td>{{stud.tStr}}</td>
